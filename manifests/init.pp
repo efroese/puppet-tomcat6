@@ -164,6 +164,15 @@ class tomcat6 ( $parentdir               = '/usr/local',
         notify  => Service['tomcat'],
     }
 
+    file { "${basedir}/bin/catalina.sh":
+        ensure => present,
+        owner  => root,
+        group  => root,
+        mode => 0755,
+        require => File[$basedir],
+        notify => Service['tomcat'],
+    }
+
     if $jmxremote_access_template != undef {
         file { "${basedir}/conf/jmxremote.access":
             ensure => present,
